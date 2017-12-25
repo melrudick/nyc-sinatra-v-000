@@ -5,7 +5,6 @@ class FiguresController <ApplicationController
   end
 
   get "/figures/new" do
-
     erb :'figures/new'
   end
 
@@ -19,7 +18,6 @@ class FiguresController <ApplicationController
       landmark = Landmark.create(params[:landmark])
       @figure.landmarks << landmark
     end
-
     redirect "figures/#{@figure.id}"
   end
 
@@ -30,7 +28,13 @@ class FiguresController <ApplicationController
 
   get "/figures/:id/edit" do
     @figure = Figure.find(params[:id])
-    erb :'figures/show'
+    erb :edit
+  end
+
+  patch "/figures/:id" do
+    @figure = Figure.find(params[:id])
+    @figure.update(params[:figure])
+    redirect "figures/#{@figure.id}"
   end
 
 end
